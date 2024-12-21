@@ -8,6 +8,18 @@ BLUE_DEVICE_INFO="$BLUEMAN info"
 declare -A bluetooth_devices
 declare -a bluetooth_device_address
 
+get_tmux_option() {
+	local option="$1"
+	local default_value="$2"
+	local option_value="$(tmux show-option -gqv "$option")"
+	if [ -z "$option_value" ]; then
+		echo "$default_value"
+	else
+		echo "$option_value"
+	fi
+}
+
+
 set_devices() {
   while IFS= read -r line; do
     dev_address=$(echo "$line" | awk '{print $2}')
@@ -42,14 +54,13 @@ is_device_connected() {
 bluetooth_connected() {
   set_devices
 
-  declare -a connected_devices
+  declare -a connected_devices=()
 
   for blue_addr in ${bluetooth_device_address[@]}; do
     if [ $(is_device_connected $blue_addr) == true ]; then
-      echo "$blue_addr"
       connected_devices+=("$blue_addr")
     fi
   done
+
+  echo $connected_devices
 }
-
-

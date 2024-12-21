@@ -1,20 +1,17 @@
 #!/usr/bin/env bash
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "$CURRENT_DIR/scripts/helpers.sh"
 
-set_devices
+source "$CURRENT_DIR/scripts/helper.sh"
 
-bluetooth_interpolation=(
-	"\#{bluetooth_color_bg}"
-	"\#{bluetooth_color_fg}"
+bluetooth_interpolations=(
 	"\#{bluetooth_icon}"
+	"\#{bluetooth_status}"
 )
 
 bluetooth_commands=(
-  "#($CURRENT_DIR/scripts/bluetooth_color.sh bg)"
-  "#($CURRENT_DIR/scripts/bluetooth_color.sh fg)"
   "#($CURRENT_DIR/scripts/bluetooth_icon.sh)"
+  "#($CURRENT_DIR/scripts/bluetooth_status.sh)"
 )
 
 set_tmux_option() {
@@ -26,7 +23,7 @@ set_tmux_option() {
 do_interpolation() {
 	local all_interpolated="$1"
 	for ((i=0; i<${#bluetooth_commands[@]}; i++)); do
-		all_interpolated=${all_interpolated//${bluetooth_commands[$i]}/${bluetooth_commands[$i]}}
+		all_interpolated=${all_interpolated//${bluetooth_interpolations[$i]}/${bluetooth_commands[$i]}}
 	done
 	echo "$all_interpolated"
 }

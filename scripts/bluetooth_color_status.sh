@@ -2,7 +2,7 @@
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-source "$CURRENT_DIR/helpers.sh"
+source "$CURRENT_DIR/helper.sh"
 
 # script global variables
 color_status_primary_connected=''
@@ -18,10 +18,10 @@ color_status_secondary_disconnected_default='colour0'
 
 # colors are set as script global variables
 get_color_status_settings() {
-	color_status_primary_connected=$(get_tmux_option "@blue_color_status_primary_charged" "$color_status_primary_charged_default")
-	color_status_primary_disconnected=$(get_tmux_option "@blue_color_status_primary_unknown" "$color_status_primary_unknown_default")
-	color_status_secondary_connected=$(get_tmux_option "@blue_color_status_secondary_charged" "$color_status_secondary_charged_default")
-	color_status_secondary_disconnected=$(get_tmux_option "@blue_color_status_secondary_unknown" "$color_status_secondary_unknown_default")
+	color_status_primary_connected=$(get_tmux_option "@blue_color_status_primary_connected" "$color_status_primary_connected_default")
+	color_status_primary_disconnected=$(get_tmux_option "@blue_color_status_primary_disconnected" "$color_status_primary_disconnected_default")
+	color_status_secondary_connected=$(get_tmux_option "@blue_color_status_secondary_connected" "$color_status_secondary_connected_default")
+	color_status_secondary_disconnected=$(get_tmux_option "@blue_color_status_secondary_disconnected" "$color_status_secondary_disconnected_default")
 }
 
 print_color_status() {
@@ -34,9 +34,9 @@ print_color_status() {
 	fi
 	local status="$2"
   if [[ $status =~ (connected) ]]; then
-		printf "#[$plane_primary=$color_status_primary_connected${color_status_secondary_charged:+",$plane_secondary=$color_status_secondary_connected"}]"
+		printf "#[$plane_primary=$color_status_primary_connected${color_status_secondary_connected:+",$plane_secondary=$color_status_secondary_connected"}]"
 	else
-		printf "#[$plane_primary=$color_status_primary_disconnected${color_status_secondary_unknown:+",$plane_secondary=$color_status_secondary_disconnected"}]"
+		printf "#[$plane_primary=$color_status_primary_disconnected${color_status_secondary_disconnected:+",$plane_secondary=$color_status_secondary_disconnected"}]"
 	fi
 }
 
