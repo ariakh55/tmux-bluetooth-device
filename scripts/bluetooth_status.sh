@@ -23,7 +23,15 @@ print_connected_device_count() {
 }
 
 main() {
-  print_connected_device_count
+  local option=$1
+  case "$option" in
+    "")
+      print_status
+      ;;
+    "count")
+      print_connected_device_count
+      ;;
+  esac
 }
 
 main $@

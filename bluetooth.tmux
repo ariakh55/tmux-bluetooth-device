@@ -7,11 +7,13 @@ source "$CURRENT_DIR/scripts/helper.sh"
 bluetooth_interpolations=(
 	"\#{bluetooth_icon}"
 	"\#{bluetooth_status}"
+	"\#{bluetooth_connected_devices_count}"
 )
 
 bluetooth_commands=(
   "#($CURRENT_DIR/scripts/bluetooth_icon.sh)"
   "#($CURRENT_DIR/scripts/bluetooth_status.sh)"
+  "#($CURRENT_DIR/scripts/bluetooth_status.sh count)"
 )
 
 set_tmux_option() {
