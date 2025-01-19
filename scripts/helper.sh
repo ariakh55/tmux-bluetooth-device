@@ -56,11 +56,11 @@ bluetooth_connected() {
 
   declare -a connected_devices=()
 
-  for blue_addr in ${bluetooth_device_address[@]}; do
-    if [ $(is_device_connected $blue_addr) == true ]; then
+  for blue_addr in "${bluetooth_device_address[@]}"; do
+    if [ "$(is_device_connected "$blue_addr")" = true ]; then
       connected_devices+=("$blue_addr")
     fi
   done
 
-  echo $connected_devices
+  printf '%s\n' "${connected_devices[@]}"
 }
